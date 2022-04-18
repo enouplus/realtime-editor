@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Editor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div class="container p-3">
+        <label for="textarea" class="form-label">Realtime Editor</label>
+        <textarea id="textarea" rows="10" class="form-control" placeholder=""></textarea>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        const uniqueId = '6363703772';
+        const firebaseConfig = {
+          apiKey: "AIzaSyBsK7v1asy6BifZK7ez8FT0ryt0v7XNjvY",
+          authDomain: "raghu-firebase-project.firebaseapp.com",
+          databaseURL: "https://raghu-firebase-project-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "raghu-firebase-project",
+          storageBucket: "raghu-firebase-project.appspot.com",
+          messagingSenderId: "264029797210",
+          appId: "1:264029797210:web:0f6ec09ce8690ff7cf9163"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const databaseRef = firebase.database().ref(uniqueId);
+
+        const textarea = document.getElementById("textarea");
+        textarea.addEventListener("input", (e) => {
+            databaseRef.set(textarea.value);
+        });
+
+        databaseRef.on('value', (snapshot) => {
+            textarea.value = snapshot.val();
+        });
+
+    </script>
+
+
+</body>
+</html>
